@@ -22,7 +22,7 @@ module.exports = {
       columnId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'columns', key: 'id'},
+        references: { model: 'columns', key: 'id' },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         field: 'column_id'
