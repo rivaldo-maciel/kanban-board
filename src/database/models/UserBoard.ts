@@ -13,7 +13,7 @@ UserBoard.init(
   },
   {
     sequelize: dbConfig,
-    modelName: 'User',
+    modelName: 'UserBoard',
     underscored: true,
     timestamps: false
   }

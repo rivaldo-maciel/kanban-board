@@ -1,21 +1,23 @@
 import { Model, DataTypes } from 'sequelize';
 import dbConfig from '.';
 
-class Board extends Model {
+class UserBoard extends Model {
   id?: number;
   title!: string;
+  boardId!: number;
 }
 
-Board.init(
+UserBoard.init(
   {
     title: DataTypes.STRING,
+    boardId: DataTypes.NUMBER
   },
   {
     sequelize: dbConfig,
-    modelName: 'Board',
+    modelName: 'Column',
     underscored: true,
     timestamps: false
   }
 );
 
-export default Board;
+export default UserBoard;
