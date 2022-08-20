@@ -13,15 +13,15 @@ class App {
     this.express.use(express.json());
   }
 
-  private routes(route: string, router: Router): void {
+  public routes(route: string, router: Router): void {
     this.express.use(route, router);
   }
 
-  private useErrorMiddleware(middleware: ErrorRequestHandler): void {
+  public useErrorMiddleware(middleware: ErrorRequestHandler): void {
     this.express.use(middleware);
   }
 
-  private start(PORT: number): void {
+  public start(PORT: number): void {
     this.express.listen(PORT, () => {
       console.log(`Server running on port: ${PORT}`);
     });
