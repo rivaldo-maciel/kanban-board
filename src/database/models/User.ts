@@ -1,27 +1,34 @@
-import { Model, DataTypes } from 'sequelize';
-import dbConfig from '.';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-class User extends Model {
+@Entity()
+class User {
+
+  @PrimaryGeneratedColumn()
   id?: number;
-  firstName!: string;
-  lastName!: string;
-  email!: string;
-  password!: string;
-}
 
-User.init(
-  {
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
-  },
-  {
-    sequelize: dbConfig,
-    modelName: 'User',
-    underscored: true,
-    timestamps: false
+  @Column()
+  firstName!: string;
+
+  @Column()
+  lastName!: string;
+
+  @Column()
+  email!: string;
+
+  @Column()
+  password!: string;
+
+  constructor(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
   }
-);
+}
 
 export default User;
