@@ -1,15 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column as column } from 'typeorm';
 
 @Entity()
-class UserBoard {
+class Column {
 
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
+  @column()
   title!: string;
 
-  @Column()
+  @column()
   boardId!: number;
 
   constructor(title: string, boardId: number) {
@@ -18,4 +18,4 @@ class UserBoard {
   }
 }
 
-export default UserBoard;
+export default Column;
