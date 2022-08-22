@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 class Board {
@@ -8,6 +8,10 @@ class Board {
 
   @Column()
   title: string;
+
+  constructor(title: string) {
+    this.title = title;
+  }
 }
 
 export default Board;
