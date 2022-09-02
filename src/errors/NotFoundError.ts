@@ -1,3 +1,5 @@
+import GenericError from "./GenericError";
+
 class NotFoundError extends GenericError {
   constructor() {
     super();
@@ -5,3 +7,5 @@ class NotFoundError extends GenericError {
     this.status = 404;
   }
 }
+
+export default NotFoundError;
