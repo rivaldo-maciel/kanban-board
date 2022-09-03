@@ -11,11 +11,6 @@ class Column {
 
   @column()
   boardId!: number;
-
-  constructor(title: string, boardId: number) {
-    this.title = title;
-    this.boardId = boardId;
-  }
 }
 
 export default Column;

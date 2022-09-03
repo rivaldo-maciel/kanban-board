@@ -14,11 +14,6 @@ class Task {
 
   @Column()
   columnId!: number;
-
-  constructor(content: string, columnId: number) {
-    this.content = content;
-    this.columnId = columnId;
-  }
 }
 
 export default Task;

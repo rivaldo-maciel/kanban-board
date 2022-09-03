@@ -11,7 +11,15 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [".database/models/**/*.ts"],
+    entities: ['src/database/models/**/*.ts'],
     migrations: [".database/migrations/*.ts"],
     subscribers: [],
-})
+});
+
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization", err)
+    })

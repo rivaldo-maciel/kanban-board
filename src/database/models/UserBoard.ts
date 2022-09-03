@@ -1,18 +1,13 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 class UserBoard {
 
-  @Column()
+  @PrimaryColumn()
   userId!: number;
 
-  @Column()
+  @PrimaryColumn()
   boardId!: number;
-
-  constructor(userId: number, boardId: number) {
-    this.userId = userId;
-    this.boardId = boardId;
-  }
 }
 
 export default UserBoard;

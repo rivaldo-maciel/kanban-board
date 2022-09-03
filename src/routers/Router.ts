@@ -5,8 +5,9 @@ class GenericRouter {
   private _router : Router;
   private controller: IControllers;
 
-  constructor(expressRouter: Router) {
+  constructor(expressRouter: Router, controller: IControllers) {
     this._router = expressRouter;
+    this.controller = controller;
     this.createRoutes();
   }
 
