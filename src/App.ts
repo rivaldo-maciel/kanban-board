@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import { Router, ErrorRequestHandler } from 'express';
 
 class App {

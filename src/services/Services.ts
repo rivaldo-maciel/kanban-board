@@ -2,8 +2,9 @@ import { DataSource, EntityTarget, Repository, FindOneOptions, DeleteResult, Upd
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import NotFoundError from '../errors/NotFoundError';
 import { z, ZodRawShape } from 'zod';
+import IServices from './interfaces/IServices';
 
-abstract class Services<T> {
+abstract class Services<T> implements IServices<T> {
   private dataSource: DataSource;
   protected repository: Repository<T>;
   protected schema: z.ZodObject<ZodRawShape>;
