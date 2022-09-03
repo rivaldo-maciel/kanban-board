@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import IServices from '../services/interfaces/IServices';
 
-class Controller<T> {
+class Controllers<T> {
 
   private services: IServices<T>
 
@@ -61,4 +61,4 @@ class Controller<T> {
 
 }
 
-export default Controller;
+export default Controllers;
