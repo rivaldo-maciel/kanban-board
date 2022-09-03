@@ -7,6 +7,7 @@ import Services from './Services';
 class UserServices extends Services<User> {
 
   public create(entity: User): Promise<User> {
+    this.schema.parse(entity);
     this.checkUserExistence(entity.email);
     return this.repository.save(entity);
   }

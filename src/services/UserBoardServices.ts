@@ -6,6 +6,7 @@ import GenericServices from './Services';
 class UserBoardServices extends GenericServices<UserBoard> {
 
   public create(entity: UserBoard): Promise<UserBoard> {
+    this.schema.parse(entity);
     return this.repository.save(entity);
   }
 
