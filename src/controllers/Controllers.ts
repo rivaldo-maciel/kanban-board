@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import IServices from '../services/interfaces/IServices';
+import IControllers from './interfaces/IControllers';
 
-class Controllers<T> {
+class Controllers<T> implements IControllers {
 
-  private services: IServices<T>
+  private services: IServices<T>;
 
   constructor(services: IServices<T>) {
     this.services = services;
