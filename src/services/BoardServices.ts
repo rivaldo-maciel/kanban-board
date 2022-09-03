@@ -6,6 +6,7 @@ import Services from './Services';
 class BoardServices extends Services<Board> {
 
   public create(entity: Board): Promise<Board> {
+    this.schema.parse(entity);
     return this.repository.save(entity);
   }
 

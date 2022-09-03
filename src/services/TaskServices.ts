@@ -6,6 +6,7 @@ import GenericServices from './Services';
 class TaskServices extends GenericServices<Task> {
 
   public create(entity: Task): Promise<Task> {
+    this.schema.parse(entity);
     return this.repository.save(entity);
   }
 

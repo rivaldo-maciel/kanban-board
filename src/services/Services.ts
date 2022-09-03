@@ -1,14 +1,21 @@
 import { DataSource, EntityTarget, Repository, FindOneOptions, DeleteResult, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import NotFoundError from '../errors/NotFoundError';
+import { z, ZodRawShape } from 'zod';
 
 abstract class Services<T> {
   private dataSource: DataSource;
   protected repository: Repository<T>;
+  protected schema: z.ZodObject<ZodRawShape>;
 
-  constructor(dataSource: DataSource, model: EntityTarget<T>) {
+  constructor(
+    dataSource: DataSource,
+    model: EntityTarget<T>,
+    schema: z.ZodObject<ZodRawShape>
+    ) {
     this.dataSource = dataSource;
     this.repository = this.dataSource.getRepository(model);
+    this.schema = schema;
   }
 
   public abstract create(entity: T): Promise<T>

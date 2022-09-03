@@ -6,6 +6,7 @@ import Services from './Services';
 class ColumnServices extends Services<Column> {
 
   public create(entity: Column): Promise<Column> {
+    this.schema.parse(entity);
     return this.repository.save(entity);
   }
 
