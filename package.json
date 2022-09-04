@@ -5,8 +5,8 @@
    "main": "index.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "ts-node src/index.ts",
-      "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+      "start": "ts-node src/server.ts",
+      "typeorm": "typeorm-ts-node-commonjs",
       "create": "typeorm migration:create ./src/database/migration/",
       "migrate": "npx typeorm-ts-node-commonjs migration:run -d src/data-source",
       "revert": "npx typeorm-ts-node-commonjs migration:revert -d src/data-source"
