@@ -25,7 +25,7 @@ abstract class Services<T> implements IServices<T> {
 
   public abstract getOne(id: number): Promise<T>
 
-  public abstract update(alteration: QueryDeepPartialEntity<T>, id: number): Promise<UpdateResult>
+  public abstract update(id: number, alteration: QueryDeepPartialEntity<T>): Promise<UpdateResult>
 
   public abstract remove(id: number): Promise<DeleteResult>
 

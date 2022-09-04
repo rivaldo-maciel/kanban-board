@@ -8,7 +8,7 @@ interface IServices<T> {
 
   getOne(id: number): Promise<T>
 
-  update(alteration: QueryDeepPartialEntity<T>, id: number): Promise<UpdateResult>
+  update(id: number, alteration: QueryDeepPartialEntity<T>): Promise<UpdateResult>
 
   remove(id: number): Promise<DeleteResult>
 }

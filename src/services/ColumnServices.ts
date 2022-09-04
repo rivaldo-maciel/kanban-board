@@ -19,7 +19,7 @@ class ColumnServices extends Services<Column> {
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public update(alteration: QueryDeepPartialEntity<Column>, id: number): Promise<UpdateResult> {
+  public update(id: number, alteration: QueryDeepPartialEntity<Column>): Promise<UpdateResult> {
     this.checkExistence(id);
     return this.repository.update(id, alteration);
   }

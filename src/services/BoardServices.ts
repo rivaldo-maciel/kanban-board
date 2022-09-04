@@ -19,7 +19,7 @@ class BoardServices extends Services<Board> {
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public update(alteration: QueryDeepPartialEntity<Board>, id: number): Promise<UpdateResult> {
+  public update(id: number, alteration: QueryDeepPartialEntity<Board>): Promise<UpdateResult> {
     this.checkExistence(id);
     return this.repository.update(id, alteration);
   }
