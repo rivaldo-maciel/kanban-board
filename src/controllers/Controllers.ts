@@ -43,7 +43,7 @@ class Controllers<T> implements IControllers {
     try {
       const id = req.params;
       const alteration = req.body;
-      const updateResult = await this.services.update(alteration, Number(id));
+      const updateResult = await this.services.update(Number(id), alteration,);
       return res.status(200).json(updateResult);
     } catch (e: unknown) {
       next(e);

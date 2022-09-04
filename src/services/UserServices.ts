@@ -3,13 +3,16 @@ import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity
 import User from '../database/models/User';
 import DuplicateUserError from '../errors/DuplicateUserError';
 import Services from './Services';
+import * as bcrypt from 'bcrypt';
 
 class UserServices extends Services<User> {
 
-  public create(entity: User): Promise<User> {
+  public async create(entity: User): Promise<User> {
     this.schema.parse(entity);
     this.checkUserExistence(entity.email);
-    return this.repository.save(entity);
+    const newUser = { ... entity };
+    newUser.password = await this.hashPassword(entity.password);
+    return this.repository.save(newUser);
   }
 
   public async getAll(): Promise<User[]> {
@@ -34,6 +37,12 @@ class UserServices extends Services<User> {
   private async checkUserExistence(email: string): Promise<void> {
     const user = await this.repository.findOne({ where: { email } });
     if (user) throw new DuplicateUserError();
+  }
+
+  private async hashPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(10);
+    const hash = bcrypt.hashSync(password, salt);
+    return hash;
   }
 
 }
