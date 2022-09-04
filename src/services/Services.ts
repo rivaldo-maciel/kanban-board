@@ -4,19 +4,24 @@ import NotFoundError from '../errors/NotFoundError';
 import { z, ZodRawShape } from 'zod';
 import IServices from './interfaces/IServices';
 
-abstract class Services<T> implements IServices<T> {
+abstract class Services<T, U = void> implements IServices<T> {
   private dataSource: DataSource;
   protected repository: Repository<T>;
   protected schema: z.ZodObject<ZodRawShape>;
+  protected repositorySupport: Repository<U>;
 
   constructor(
     dataSource: DataSource,
     model: EntityTarget<T>,
-    schema: z.ZodObject<ZodRawShape>
+    schema: z.ZodObject<ZodRawShape>,
+    modelSupport?: EntityTarget<U>,
     ) {
     this.dataSource = dataSource;
     this.repository = this.dataSource.getRepository(model);
     this.schema = schema;
+    if (modelSupport) {
+      this.repositorySupport = this.dataSource.getRepository(modelSupport);
+    }
   }
 
   public abstract create(entity: T): Promise<T>
@@ -25,7 +30,7 @@ abstract class Services<T> implements IServices<T> {
 
   public abstract getOne(id: number): Promise<T>
 
-  public abstract update(alteration: QueryDeepPartialEntity<T>, id: number): Promise<UpdateResult>
+  public abstract update(id: number, alteration: QueryDeepPartialEntity<T>): Promise<UpdateResult>
 
   public abstract remove(id: number): Promise<DeleteResult>
 

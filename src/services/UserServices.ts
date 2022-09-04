@@ -21,7 +21,7 @@ class UserServices extends Services<User> {
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public update(alteration: QueryDeepPartialEntity<User>, id: number): Promise<UpdateResult> {
+  public update(id: number, alteration: QueryDeepPartialEntity<User>): Promise<UpdateResult> {
     this.checkExistence(id);
     return this.repository.update(id, alteration);
   }

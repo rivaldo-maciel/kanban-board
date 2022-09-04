@@ -19,7 +19,7 @@ class TaskServices extends GenericServices<Task> {
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public update(alteration: QueryDeepPartialEntity<Task>, id: number): Promise<UpdateResult> {
+  public update(id: number, alteration: QueryDeepPartialEntity<Task>): Promise<UpdateResult> {
     this.checkExistence(id);
     return this.repository.update(id, alteration);
   }

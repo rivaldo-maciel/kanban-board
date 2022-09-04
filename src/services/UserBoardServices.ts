@@ -19,7 +19,7 @@ class UserBoardServices extends GenericServices<UserBoard> {
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public update(alteration: QueryDeepPartialEntity<UserBoard>, id: number): Promise<UpdateResult> {
+  public update(id: number, alteration: QueryDeepPartialEntity<UserBoard>): Promise<UpdateResult> {
     this.checkExistence(id);
     return this.repository.update(id, alteration);
   }

@@ -1,13 +1,14 @@
-import { DeleteResult, FindOneOptions, UpdateResult } from 'typeorm';
+import { DeleteResult, FindOneOptions, Repository, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { UserBoard } from '../database/models';
 import Board from '../database/models/Board';
 import Services from './Services';
 
 class BoardServices extends Services<Board> {
 
-  public create(entity: Board): Promise<Board> {
+  public async create(entity: Board): Promise<Board> {
     this.schema.parse(entity);
-    return this.repository.save(entity);
+    return await this.repository.save(entity);
   }
 
   public async getAll(): Promise<Board[]> {
@@ -19,14 +20,14 @@ class BoardServices extends Services<Board> {
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public update(alteration: QueryDeepPartialEntity<Board>, id: number): Promise<UpdateResult> {
+  public async update(id: number, alteration: QueryDeepPartialEntity<Board>): Promise<UpdateResult> {
     this.checkExistence(id);
-    return this.repository.update(id, alteration);
+    return await this.repository.update(id, alteration);
   }
 
-  public remove(id: number): Promise<DeleteResult> {
+  public async remove(id: number): Promise<DeleteResult> {
     this.checkExistence(id);
-    return this.repository.delete(id);
+    return await this.repository.delete(id);
   }
 
 }
