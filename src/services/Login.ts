@@ -1,8 +1,10 @@
 import { DataSource, EntityTarget, Repository } from 'typeorm';
 import { User } from '../database/models';
-import NotFoundError from '../errors/NotFoundError';
 import * as bcrypt from 'bcrypt';
-import NonExistentUserError from "../errors/NonExistentUserError";
+import * as jwt from 'jsonwebtoken';
+import NonExistentUserError from '../errors/NonExistentUserError';
+import 'dotenv/config';
+
 
 class Login {
   private dataSource: DataSource;
@@ -13,12 +15,17 @@ class Login {
     this.repository = dataSource.getRepository(model);
   }
 
-  public async sigIn(email: string, password: string): Promise<void> {
+  public async sigIn(email: string, password: string): Promise<string> {
     const user = await this.repository.findOne({ where: { email }});
     if (user == undefined) {
       throw new NonExistentUserError();
     }
     await bcrypt.compare(password, user.password);
-
+    const payload = Object.assign({}, user);
+    delete payload.password;
+    const token = jwt.sign(payload, process.env.JWY_SECRET);
+    return token;
   }
 }
+
+export default Login;
