@@ -4,11 +4,13 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import NonExistentUserError from '../errors/NonExistentUserError';
 import 'dotenv/config';
+import { z, ZodRawShape } from 'zod';
 
 
 class Login {
   private dataSource: DataSource;
   protected repository: Repository<User>;
+  protected schema: z.ZodObject<ZodRawShape>;
 
   constructor(dataSource: DataSource, model: EntityTarget<User>) {
     this.dataSource = dataSource;
@@ -16,6 +18,7 @@ class Login {
   }
 
   public async sigIn(email: string, password: string): Promise<string> {
+    this.schema.parse({ email, password });
     const user = await this.repository.findOne({ where: { email }});
     if (!user) {
       throw new NonExistentUserError();

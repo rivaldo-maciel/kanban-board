@@ -1,14 +1,8 @@
 import App from './App';
-import GenericRouter from './routers/Router';
-import { ErrorRequestHandler, response, Router } from 'express';
+import EntityRouter from './routers/Router';
+import { Router } from 'express';
 import { AppDataSource } from './data-source';
-import {
-  Board,
-  Column,
-  Task,
-  User,
-  UserBoard
-} from './database/models';
+import { Board, Column, Task, User, UserBoard } from './database/models';
 
 import {
   BoardServices,
@@ -34,8 +28,6 @@ import {
   userSchema
 } from './schemas';
 import ErrorMiddleware from './middlewares/ErrorMiddleware';
-import { unknown } from 'zod';
-import { request } from 'http';
 
 const PORT = 3001;
 
@@ -43,31 +35,35 @@ const app = new App();
 
 const boardServices = new BoardServices(AppDataSource, Board, boardSchema);
 const boardControllers = new BoardControllers(boardServices);
-const boardRouter = new GenericRouter(Router(), boardControllers);
+const boardRouter = new EntityRouter(Router(), boardControllers);
 
 app.routes('/boards', boardRouter.router);
 
 const columnServices = new ColumnServices(AppDataSource, Column, columnSchema);
 const columnControllers = new ColumnControllers(columnServices);
-const columnRouter = new GenericRouter(Router(), columnControllers);
+const columnRouter = new EntityRouter(Router(), columnControllers);
 
 app.routes('/columns', columnRouter.router);
 
 const taskServices = new TaskServices(AppDataSource, Task, taskSchema);
 const taskControllers = new TaskControllers(taskServices);
-const taskRouter = new GenericRouter(Router(), taskControllers);
+const taskRouter = new EntityRouter(Router(), taskControllers);
 
 app.routes('/tasks', taskRouter.router);
 
-const userBoardServices = new UserBoardServices(AppDataSource, UserBoard, userBoardSchema);
+const userBoardServices = new UserBoardServices(
+  AppDataSource,
+  UserBoard,
+  userBoardSchema
+);
 const userBoardControllers = new UserBoardControllers(userBoardServices);
-const userBoardRouter = new GenericRouter(Router(), userBoardControllers);
+const userBoardRouter = new EntityRouter(Router(), userBoardControllers);
 
 app.routes('/usersBoards', userBoardRouter.router);
 
 const userServices = new UserServices(AppDataSource, User, userSchema);
 const userControllers = new UserControllers(userServices);
-const userRouter = new GenericRouter(Router(), userControllers);
+const userRouter = new EntityRouter(Router(), userControllers);
 
 app.routes('/users', userRouter.router);
 

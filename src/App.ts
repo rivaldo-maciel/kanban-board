@@ -2,7 +2,7 @@ import * as express from 'express';
 import { Router, ErrorRequestHandler } from 'express';
 
 class App {
-  express: express.Application;
+  private express: express.Application;
 
   constructor() {
     this.express = express();

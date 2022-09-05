@@ -4,7 +4,6 @@ import User from '../database/models/User';
 import Services from './Services';
 import * as bcrypt from 'bcrypt';
 import IUserServices from './interfaces/IUserServices';
-import NonExistentUserError from '../errors/NonExistentUserError';
 import DuplicateUserError from '../errors/DuplicateUserError';
 
 class UserServices extends Services<User> implements IUserServices {

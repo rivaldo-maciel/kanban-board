@@ -1,9 +1,9 @@
 import { FindOneOptions, UpdateResult, DeleteResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import UserBoard from '../database/models/UserBoard';
-import GenericServices from './Services';
+import Services from './Services';
 
-class UserBoardServices extends GenericServices<UserBoard> {
+class UserBoardServices extends Services<UserBoard> {
 
   public async create(entity: UserBoard): Promise<UserBoard> {
     this.schema.parse(entity);
