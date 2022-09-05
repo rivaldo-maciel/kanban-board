@@ -14,7 +14,7 @@ class Controllers<T> implements IControllers {
     try {
       const entity = req.body;
       const createdEntity = await this.services.create(entity);
-      return res.status(200).json(createdEntity);
+      return res.status(201).json(createdEntity);
     } catch (e: unknown) {
       next(e);
     }
