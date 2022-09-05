@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 import GenericError from '../errors/GenericError';
+import { JsonWebTokenError } from 'jsonwebtoken';
 
 class ErrorMiddleware {
   public async errorMiddleware(
@@ -17,6 +18,10 @@ class ErrorMiddleware {
         .status(400)
         .json({ type: 'data type error', message: err.issues });
     }
+    if (err instanceof JsonWebTokenError) {
+      return res.status(400).json({ message: 'invalid token'});
+    }
+  
     return res.status(500).json({ message: 'internal error' });
   }
 }

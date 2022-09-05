@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Router, ErrorRequestHandler } from 'express';
+import { Router, ErrorRequestHandler, RequestHandler } from 'express';
 
 class App {
   private express: express.Application;
@@ -19,6 +19,10 @@ class App {
 
   public useErrorMiddleware(middleware: ErrorRequestHandler): void {
     this.express.use(middleware);
+  }
+
+  public useJwtMiddleware(jwtMiddleware: RequestHandler) {
+    this.express.use(jwtMiddleware);
   }
 
   public start(PORT: number): void {

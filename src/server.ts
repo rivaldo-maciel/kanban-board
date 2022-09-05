@@ -32,10 +32,26 @@ import {
 } from './schemas';
 import ErrorMiddleware from './middlewares/ErrorMiddleware';
 import LoginRouter from './routers/LoginRouter';
+import JwtMiddleware from './middlewares/JwtMiddleware';
 
 const PORT = 3001;
 
 const app = new App();
+
+const userServices = new UserServices(AppDataSource, User, userSchema);
+const userControllers = new UserControllers(userServices);
+const userRouter = new EntityRouter(Router(), userControllers);
+
+app.routes('/users', userRouter.router);
+
+const loginServices = new LoginServices(AppDataSource, User, loginSchema);
+const loginControllers = new LoginControllers(loginServices);
+const loginRouter = new LoginRouter(Router(), loginControllers);
+
+app.routes('/login', loginRouter.router);
+
+const jwtMiddleware = new JwtMiddleware().verifyToken;
+app.useJwtMiddleware(jwtMiddleware);
 
 const boardServices = new BoardServices(AppDataSource, Board, boardSchema);
 const boardControllers = new BoardControllers(boardServices);
@@ -64,18 +80,6 @@ const userBoardControllers = new UserBoardControllers(userBoardServices);
 const userBoardRouter = new EntityRouter(Router(), userBoardControllers);
 
 app.routes('/usersBoards', userBoardRouter.router);
-
-const userServices = new UserServices(AppDataSource, User, userSchema);
-const userControllers = new UserControllers(userServices);
-const userRouter = new EntityRouter(Router(), userControllers);
-
-app.routes('/users', userRouter.router);
-
-const loginServices = new LoginServices(AppDataSource, User, loginSchema );
-const loginControllers = new LoginControllers(loginServices);
-const loginRouter = new LoginRouter(Router(), loginControllers);
-
-app.routes('/login', loginRouter.router);
 
 const errorMiddleware = new ErrorMiddleware().errorMiddleware;
 
