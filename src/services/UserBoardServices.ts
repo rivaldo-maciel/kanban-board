@@ -1,11 +1,11 @@
 import { FindOneOptions, UpdateResult, DeleteResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import UserBoard from '../database/models/UserBoard';
-import GenericServices from './Services';
+import Services from './Services';
 
-class UserBoardServices extends GenericServices<UserBoard> {
+class UserBoardServices extends Services<UserBoard> {
 
-  public create(entity: UserBoard): Promise<UserBoard> {
+  public async create(entity: UserBoard): Promise<UserBoard> {
     this.schema.parse(entity);
     return this.repository.save(entity);
   }
@@ -15,18 +15,21 @@ class UserBoardServices extends GenericServices<UserBoard> {
   }
 
   public async getOne(id: number): Promise<UserBoard> {
-    this.checkExistence(id);
+    await this.checkExistence(id);
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public update(id: number, alteration: QueryDeepPartialEntity<UserBoard>): Promise<UpdateResult> {
-    this.checkExistence(id);
-    return this.repository.update(id, alteration);
+  public async update(
+    id: number,
+    alteration: QueryDeepPartialEntity<UserBoard>
+  ): Promise<UpdateResult> {
+    await this.checkExistence(id);
+    return await this.repository.update(id, alteration);
   }
 
-  public remove(id: number): Promise<DeleteResult> {
-    this.checkExistence(id);
-    return this.repository.delete(id);
+  public async remove(id: number): Promise<DeleteResult> {
+    await this.checkExistence(id);
+    return await this.repository.delete(id);
   }
 }
 
