@@ -19,9 +19,9 @@ class ErrorMiddleware {
         .json({ type: 'data type error', message: err.issues });
     }
     if (err instanceof JsonWebTokenError) {
-      return res.status(400).json({ message: 'invalid token'});
+      return res.status(400).json({ message: 'invalid token' });
     }
-  
+
     return res.status(500).json({ message: 'internal error' });
   }
 }
