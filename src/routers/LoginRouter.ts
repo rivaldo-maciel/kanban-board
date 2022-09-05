@@ -13,9 +13,9 @@ class LoginRouter {
 
   createRoutes(): void {
     this._router.post(
-      '/login',
+      '/',
       (req: Request, res: Response, next: NextFunction) => {
-        this.controller.sign(req, res, next);
+        this.controller.sigIn(req, res, next);
       }
     );
   }

@@ -1,5 +1,5 @@
 import App from './App';
-import EntityRouter from './routers/Router';
+import EntityRouter from './routers/EntityRouter';
 import { Router } from 'express';
 import { AppDataSource } from './data-source';
 import { Board, Column, Task, User, UserBoard } from './database/models';
@@ -9,12 +9,14 @@ import {
   ColumnServices,
   TaskServices,
   UserBoardServices,
-  UserServices
+  UserServices,
+  LoginServices
 } from './services';
 
 import {
   BoardControllers,
   ColumnControllers,
+  LoginControllers,
   TaskControllers,
   UserBoardControllers,
   UserControllers
@@ -25,9 +27,11 @@ import {
   columnSchema,
   taskSchema,
   userBoardSchema,
-  userSchema
+  userSchema,
+  loginSchema
 } from './schemas';
 import ErrorMiddleware from './middlewares/ErrorMiddleware';
+import LoginRouter from './routers/LoginRouter';
 
 const PORT = 3001;
 
@@ -66,6 +70,12 @@ const userControllers = new UserControllers(userServices);
 const userRouter = new EntityRouter(Router(), userControllers);
 
 app.routes('/users', userRouter.router);
+
+const loginServices = new LoginServices(AppDataSource, User, loginSchema );
+const loginControllers = new LoginControllers(loginServices);
+const loginRouter = new LoginRouter(Router(), loginControllers);
+
+app.routes('/login', loginRouter.router);
 
 const errorMiddleware = new ErrorMiddleware().errorMiddleware;
 

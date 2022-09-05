@@ -1,5 +1,5 @@
-interface ILogin {
+interface ILoginServices {
   sigIn(email: string, password: string): Promise<string>
 }
 
-export default ILogin;
+export default ILoginServices;

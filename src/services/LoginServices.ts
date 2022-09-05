@@ -5,30 +5,42 @@ import * as jwt from 'jsonwebtoken';
 import NonExistentUserError from '../errors/NonExistentUserError';
 import 'dotenv/config';
 import { z, ZodRawShape } from 'zod';
+import WrongLoginFieldsError from '../errors/WrongLoginFieldsError';
 
-
-class Login {
+class LoginServices {
   private dataSource: DataSource;
   protected repository: Repository<User>;
-  protected schema: z.ZodObject<ZodRawShape>;
+  protected _schema: z.ZodObject<ZodRawShape>;
 
-  constructor(dataSource: DataSource, model: EntityTarget<User>) {
+  constructor(
+    dataSource: DataSource,
+    model: EntityTarget<User>,
+    schema: z.ZodObject<ZodRawShape>
+  ) {
     this.dataSource = dataSource;
     this.repository = dataSource.getRepository(model);
+    this._schema = schema;
   }
 
   public async sigIn(email: string, password: string): Promise<string> {
     this.schema.parse({ email, password });
-    const user = await this.repository.findOne({ where: { email }});
+    const user = await this.repository.findOne({ where: { email } });
     if (!user) {
       throw new NonExistentUserError();
     }
-    await bcrypt.compare(password, user.password);
+    const isCorrectFields = await bcrypt.compare(password, user.password);
+    if (!isCorrectFields) {
+      throw new WrongLoginFieldsError();
+    };
     const payload = Object.assign({}, user);
     delete payload.password;
-    const token = jwt.sign(payload, process.env.JWY_SECRET);
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
     return token;
+  }
+
+  get schema() {
+    return this._schema;
   }
 }
 
-export default Login;
+export default LoginServices;

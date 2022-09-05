@@ -1,11 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
-import Login from '../services/Login';
+import ILoginServices from '../services/interfaces/ILoginServices';
 import ILoginControllers from './interfaces/ILoginControllers';
 
 class LoginControllers implements ILoginControllers {
-  private loginServices: Login;
+  private loginServices: ILoginServices;
 
-  public async sign(
+  constructor(services: ILoginServices) {
+    this.loginServices = services;
+  }
+
+  public async sigIn(
     req: Request,
     res: Response,
     next: NextFunction
