@@ -1,13 +1,13 @@
 import { DataSource, EntityTarget, Repository, FindOneOptions, DeleteResult, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import NotFoundError from '../errors/NotFoundError';
 import { z, ZodRawShape } from 'zod';
+import NotFoundError from '../errors/NotFoundError';
 import IServices from './interfaces/IServices';
 
 abstract class Services<T, U = void> implements IServices<T> {
   private dataSource: DataSource;
   protected repository: Repository<T>;
-  protected schema: z.ZodObject<ZodRawShape>;
+  protected _schema: z.ZodObject<ZodRawShape>;
   protected repositorySupport: Repository<U>;
 
   constructor(
@@ -18,7 +18,7 @@ abstract class Services<T, U = void> implements IServices<T> {
     ) {
     this.dataSource = dataSource;
     this.repository = this.dataSource.getRepository(model);
-    this.schema = schema;
+    this._schema = schema;
     if (modelSupport) {
       this.repositorySupport = this.dataSource.getRepository(modelSupport);
     }
@@ -35,8 +35,12 @@ abstract class Services<T, U = void> implements IServices<T> {
   public abstract remove(id: number): Promise<DeleteResult>
 
   public async checkExistence(id: number): Promise<void> {
-    const user = await this.repository.findOne(id as FindOneOptions);
+    const user = await this.repository.findOne({ where: { id }} as FindOneOptions);
     if (!user) throw new NotFoundError();
+  }
+
+  get schema() {
+    return this._schema;
   }
 }
 

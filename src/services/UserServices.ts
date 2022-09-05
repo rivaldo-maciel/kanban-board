@@ -1,18 +1,20 @@
 import { UpdateResult, DeleteResult, FindOneOptions } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import User from '../database/models/User';
-import DuplicateUserError from '../errors/DuplicateUserError';
 import Services from './Services';
 import * as bcrypt from 'bcrypt';
+import IUserServices from './interfaces/IUserServices';
+import NonExistentUserError from '../errors/NonExistentUserError';
+import DuplicateUserError from '../errors/DuplicateUserError';
 
-class UserServices extends Services<User> {
+class UserServices extends Services<User> implements IUserServices {
 
   public async create(entity: User): Promise<User> {
     this.schema.parse(entity);
-    this.checkUserExistence(entity.email);
+    await this.checkUserExistence(entity.email);
     const newUser = { ... entity };
     newUser.password = await this.hashPassword(entity.password);
-    return this.repository.save(newUser);
+    return await this.repository.save(newUser);
   }
 
   public async getAll(): Promise<User[]> {
@@ -20,18 +22,18 @@ class UserServices extends Services<User> {
   }
 
   public async getOne(id: number): Promise<User> {
-    this.checkExistence(id);
-    return await this.repository.findOne(id as FindOneOptions);
+    await this.checkExistence(id);
+    return await this.repository.findOne({ where: { id } });
   }
 
-  public update(id: number, alteration: QueryDeepPartialEntity<User>): Promise<UpdateResult> {
-    this.checkExistence(id);
-    return this.repository.update(id, alteration);
+  public async update(id: number, alteration: QueryDeepPartialEntity<User>): Promise<UpdateResult> {
+    await this.checkExistence(id);
+    return await this.repository.update(id, alteration);
   }
 
-  public remove(id: number): Promise<DeleteResult> {
-    this.checkExistence(id);
-    return this.repository.delete(id);
+  public async remove(id: number): Promise<DeleteResult> {
+    await this.checkExistence(id);
+    return await this.repository.delete(id);
   }
 
   private async checkUserExistence(email: string): Promise<void> {

@@ -1,6 +1,6 @@
 import App from './App';
 import GenericRouter from './routers/Router';
-import { Router } from 'express';
+import { ErrorRequestHandler, response, Router } from 'express';
 import { AppDataSource } from './data-source';
 import {
   Board,
@@ -33,6 +33,9 @@ import {
   userBoardSchema,
   userSchema
 } from './schemas';
+import ErrorMiddleware from './middlewares/ErrorMiddleware';
+import { unknown } from 'zod';
+import { request } from 'http';
 
 const PORT = 3001;
 
@@ -67,5 +70,9 @@ const userControllers = new UserControllers(userServices);
 const userRouter = new GenericRouter(Router(), userControllers);
 
 app.routes('/users', userRouter.router);
+
+const errorMiddleware = new ErrorMiddleware().errorMiddleware;
+
+app.useErrorMiddleware(errorMiddleware);
 
 app.start(PORT);

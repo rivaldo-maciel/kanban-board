@@ -31,7 +31,7 @@ class Controllers<T> implements IControllers {
 
   async getOne(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const id = req.params;
+      const { id } = req.params;
       const entity = await this.services.getOne(Number(id));
       return res.status(200).json(entity);
     } catch (e: unknown) {
@@ -41,7 +41,7 @@ class Controllers<T> implements IControllers {
 
   async update(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const id = req.params;
+      const { id } = req.params;
       const alteration = req.body;
       const updateResult = await this.services.update(Number(id), alteration,);
       return res.status(200).json(updateResult);
@@ -52,7 +52,7 @@ class Controllers<T> implements IControllers {
 
   async remove(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const id = req.params;
+      const { id } = req.params;
       const deleteResult = await this.services.remove(Number(id));
       return res.status(200).json(deleteResult);
     } catch (e: unknown) {

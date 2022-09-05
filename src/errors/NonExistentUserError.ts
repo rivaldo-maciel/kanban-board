@@ -1,10 +1,10 @@
-class NonExistentUserError extends Error {
-  public status: number;
-  public message: string;
+import GenericError from './GenericError';
+
+class NonExistentUserError extends GenericError {
   constructor() {
     super();
-    this.message = "unregistered user";
-    this.status = 400;
+    this.message = 'unregistered user';
+    this._status = 400;
   }
 }
 

@@ -17,7 +17,7 @@ class Login {
 
   public async sigIn(email: string, password: string): Promise<string> {
     const user = await this.repository.findOne({ where: { email }});
-    if (user == undefined) {
+    if (!user) {
       throw new NonExistentUserError();
     }
     await bcrypt.compare(password, user.password);
