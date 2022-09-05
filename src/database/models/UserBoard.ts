@@ -1,12 +1,12 @@
 import { Entity, PrimaryColumn } from 'typeorm';
 
-@Entity()
+@Entity('users_boards')
 class UserBoard {
 
-  @PrimaryColumn()
+  @PrimaryColumn({ name: 'user_id' })
   userId!: number;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ name: 'board_id' })
   boardId!: number;
 }
 

@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: ['src/database/models/**/*.ts'],
-    migrations: [".database/migrations/*.ts"],
+    migrations: ["src/database/migrations/*.ts"],
     subscribers: [],
 });
 

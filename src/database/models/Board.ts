@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import User from './User';
 
-@Entity()
+@Entity('boards')
 class Board {
 
   @PrimaryGeneratedColumn()
@@ -8,6 +9,9 @@ class Board {
 
   @Column()
   title: string;
+
+  @ManyToMany(() => User, user => user.boards)
+  users: User[];
 }
 
 export default Board;

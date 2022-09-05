@@ -17,7 +17,7 @@ class UserServices extends Services<User> implements IUserServices {
   }
 
   public async getAll(): Promise<User[]> {
-    return await this.repository.find();
+    return await this.repository.find({ relations: ['boards'] });
   }
 
   public async getOne(id: number): Promise<User> {
