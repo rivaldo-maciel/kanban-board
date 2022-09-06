@@ -4,7 +4,6 @@ import UserBoard from '../database/models/UserBoard';
 import Services from './Services';
 
 class UserBoardServices extends Services<UserBoard> {
-
   public async create(entity: UserBoard): Promise<UserBoard> {
     this.schema.parse(entity);
     return this.repository.save(entity);

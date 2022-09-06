@@ -31,7 +31,7 @@ class LoginServices {
     const isCorrectFields = await bcrypt.compare(password, user.password);
     if (!isCorrectFields) {
       throw new WrongLoginFieldsError();
-    };
+    }
     const payload = Object.assign({}, user);
     delete payload.password;
     const token = jwt.sign(payload, process.env.JWT_SECRET);
