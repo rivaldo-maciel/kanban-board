@@ -11,7 +11,7 @@ class BoardServices extends Services<Board> {
   }
 
   public async getAll(): Promise<Board[]> {
-    return await this.repository.find();
+    return await this.repository.find({ relations: ['columns'] });
   }
 
   public async getOne(id: number): Promise<Board> {

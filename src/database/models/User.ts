@@ -1,9 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable
+} from 'typeorm';
 import Board from './Board';
 
 @Entity('users')
 class User {
-
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -19,7 +24,7 @@ class User {
   @Column()
   password!: string;
 
-  @ManyToMany(() => Board, board => board.users)
+  @ManyToMany(() => Board, (board) => board.users)
   @JoinTable({
     name: 'users_boards',
     joinColumn: {
@@ -31,7 +36,7 @@ class User {
       referencedColumnName: 'id'
     }
   })
-  boards: Board[]
+  boards: Board[];
 }
 
 export default User;

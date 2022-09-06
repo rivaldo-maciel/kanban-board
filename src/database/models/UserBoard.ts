@@ -2,7 +2,6 @@ import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('users_boards')
 class UserBoard {
-
   @PrimaryColumn({ name: 'user_id' })
   userId!: number;
 

@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('tasks')
 class Task {
-
   @PrimaryGeneratedColumn()
   id?: number;
 
