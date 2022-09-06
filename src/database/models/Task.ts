@@ -1,18 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column as column, ManyToOne } from 'typeorm';
+import Column from './Column';
 
-@Entity()
+@Entity('tasks')
 class Task {
-
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
+  @column()
   content!: string;
 
-  @Column()
+  @column()
   createdDate!: Date;
 
-  @Column()
+  @ManyToOne(() => Column, (column) => column.tasks)
+  @column()
   columnId!: number;
 }
 

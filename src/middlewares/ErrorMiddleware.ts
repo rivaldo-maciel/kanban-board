@@ -10,6 +10,8 @@ class ErrorMiddleware {
     res: Response,
     _next: NextFunction
   ): Promise<Response> {
+    console.log(err);
+    
     if (err instanceof GenericError) {
       return res.status(err.status).json({ message: err.message });
     }

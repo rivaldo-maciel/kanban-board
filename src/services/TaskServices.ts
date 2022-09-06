@@ -4,7 +4,6 @@ import Task from '../database/models/Task';
 import Services from './Services';
 
 class TaskServices extends Services<Task> {
-
   public async create(entity: Task): Promise<Task> {
     this.schema.parse(entity);
     return await this.repository.save(entity);
@@ -19,7 +18,10 @@ class TaskServices extends Services<Task> {
     return await this.repository.findOne(id as FindOneOptions);
   }
 
-  public async update(id: number, alteration: QueryDeepPartialEntity<Task>): Promise<UpdateResult> {
+  public async update(
+    id: number,
+    alteration: QueryDeepPartialEntity<Task>
+  ): Promise<UpdateResult> {
     await this.checkExistence(id);
     return await this.repository.update(id, alteration);
   }
