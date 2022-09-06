@@ -53,7 +53,7 @@ app.routes('/login', loginRouter.router);
 const jwtMiddleware = new JwtMiddleware().verifyToken;
 app.useJwtMiddleware(jwtMiddleware);
 
-const boardServices = new BoardServices(AppDataSource, Board, boardSchema);
+const boardServices = new BoardServices(AppDataSource, Board, boardSchema, UserBoard);
 const boardControllers = new BoardControllers(boardServices);
 const boardRouter = new EntityRouter(Router(), boardControllers);
 

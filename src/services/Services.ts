@@ -24,7 +24,7 @@ abstract class Services<T, U = void> implements IServices<T> {
     }
   }
 
-  public abstract create(entity: T): Promise<T>
+  public abstract create(entity: T, userId: number | null): Promise<T>
 
   public abstract getAll(): Promise<T[]>
 

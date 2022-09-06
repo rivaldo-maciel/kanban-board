@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import IServices from '../services/interfaces/IServices';
+import { RequestWithUserId } from '../types/express';
 import IControllers from './interfaces/IControllers';
 
 class Controllers<T> implements IControllers {
@@ -10,10 +11,11 @@ class Controllers<T> implements IControllers {
     this.services = services;
   }
 
-  async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
+  async create(req: RequestWithUserId, res: Response, next: NextFunction): Promise<Response> {
     try {
       const entity = req.body;
-      const createdEntity = await this.services.create(entity);
+      const userId = req.userId;
+      const createdEntity = await this.services.create(entity, userId);
       return res.status(201).json(createdEntity);
     } catch (e: unknown) {
       next(e);

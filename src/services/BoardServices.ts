@@ -1,13 +1,17 @@
-import { DeleteResult, FindOneOptions, UpdateResult } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { UserBoard } from '../database/models';
 import Board from '../database/models/Board';
 import Services from './Services';
 
-class BoardServices extends Services<Board> {
+class BoardServices extends Services<Board, UserBoard> {
 
-  public async create(entity: Board): Promise<Board> {
+  public async create(entity: Board, userId: number): Promise<Board> {
     this.schema.parse(entity);
-    return await this.repository.save(entity);
+    const newBoard = await this.repository.save(entity);
+    console.log({ userId, boardId: newBoard.id });  
+    await this.repositorySupport.save({ userId, boardId: newBoard.id });
+    return newBoard;
   }
 
   public async getAll(): Promise<Board[]> {
