@@ -16,7 +16,7 @@ class BoardServices extends Services<Board> {
 
   public async getOne(id: number): Promise<Board> {
     await this.checkExistence(id);
-    return await this.repository.findOne(id as FindOneOptions);
+    return await this.repository.findOne({ where: { id }, relations: ['columns'] });
   }
 
   public async update(id: number, alteration: QueryDeepPartialEntity<Board>): Promise<UpdateResult> {

@@ -2,9 +2,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column as column,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm';
 import Board from './Board';
+import Task from './Task';
 
 @Entity('columns')
 class Column {
@@ -17,6 +19,9 @@ class Column {
   @ManyToOne(() => Board, (board) => board.columns)
   @column()
   boardId!: number;
+
+  @OneToMany(() => Task, (task) => task.columnId)
+  tasks: Task[]
 }
 
 export default Column;

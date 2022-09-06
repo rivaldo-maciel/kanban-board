@@ -16,7 +16,7 @@ class ColumnServices extends Services<Column> {
 
   public async getOne(id: number): Promise<Column> {
     await this.checkExistence(id);
-    return await this.repository.findOne(id as FindOneOptions);
+    return await this.repository.findOne({ where: { id }, relations: ['tasks'] });
   }
 
   public async update(id: number, alteration: QueryDeepPartialEntity<Column>): Promise<UpdateResult> {

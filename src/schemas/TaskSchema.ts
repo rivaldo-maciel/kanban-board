@@ -6,7 +6,7 @@ const taskSchema = z.object({
   content: z.string()
   .min(1, { message: "content too short" })
   .max(30, { message: "content too big" }),
-  createdDate: z.date(),
+  createdDate: z.string(),
   columnId: z.number()
 });
 
