@@ -1,4 +1,4 @@
-import { DeleteResult, FindOneOptions, UpdateResult } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import Task from '../database/models/Task';
 import Services from './Services';
@@ -15,7 +15,7 @@ class TaskServices extends Services<Task> {
 
   public async getOne(id: number): Promise<Task> {
     await this.checkExistence(id);
-    return await this.repository.findOne(id as FindOneOptions);
+    return await this.repository.findOne({ where: { id }});
   }
 
   public async update(

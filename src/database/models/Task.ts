@@ -15,6 +15,9 @@ class Task {
   @ManyToOne(() => Column, (column) => column.tasks)
   @column()
   columnId!: number;
+
+  @column()
+  index!: number;
 }
 
 export default Task;

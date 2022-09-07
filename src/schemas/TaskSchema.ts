@@ -7,7 +7,8 @@ const taskSchema = z.object({
     .min(1, { message: 'content too short' })
     .max(30, { message: 'content too big' }),
   createdDate: z.string(),
-  columnId: z.number()
+  columnId: z.number(),
+  index: z.number()
 });
 
 export default taskSchema;
