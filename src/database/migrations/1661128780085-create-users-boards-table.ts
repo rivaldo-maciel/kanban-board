@@ -27,7 +27,8 @@ export class createUsersBoardsTable1661128780085 implements MigrationInterface {
       new TableForeignKey({
         columnNames: ['user_id'],
         referencedTableName: 'users',
-        referencedColumnNames: ['id']
+        referencedColumnNames: ['id'],
+        onDelete: 'cascade'
       })
     );
     await queryRunner.createForeignKey(
@@ -35,7 +36,8 @@ export class createUsersBoardsTable1661128780085 implements MigrationInterface {
       new TableForeignKey({
         columnNames: ['board_id'],
         referencedTableName: 'boards',
-        referencedColumnNames: ['id']
+        referencedColumnNames: ['id'],
+        onDelete: 'cascade'
       })
     );
   }

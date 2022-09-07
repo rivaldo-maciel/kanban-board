@@ -33,6 +33,11 @@ export class createTasksTable1661107435828 implements MigrationInterface {
             name: 'column_id',
             type: 'int',
             isNullable: false
+          },
+          {
+            name: 'index',
+            type: 'int',
+            isNullable: false
           }
         ]
       })

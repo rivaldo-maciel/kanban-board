@@ -1,4 +1,4 @@
-import { FindOneOptions, UpdateResult, DeleteResult } from 'typeorm';
+import { UpdateResult, DeleteResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import UserBoard from '../database/models/UserBoard';
 import Services from './Services';
@@ -11,11 +11,6 @@ class UserBoardServices extends Services<UserBoard> {
 
   public async getAll(): Promise<UserBoard[]> {
     return await this.repository.find();
-  }
-
-  public async getOne(id: number): Promise<UserBoard> {
-    await this.checkExistence(id);
-    return await this.repository.findOne(id as FindOneOptions);
   }
 
   public async update(
