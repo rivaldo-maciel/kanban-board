@@ -5,7 +5,7 @@ import IControllers from './interfaces/IControllers';
 
 class Controllers<T> implements IControllers {
 
-  private services: IServices<T>;
+  protected services: IServices<T>;
 
   constructor(services: IServices<T>) {
     this.services = services;

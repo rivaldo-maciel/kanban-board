@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class createUserTable1661099579706 implements MigrationInterface {
+export class createBoardTable1667398210791 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'boards',
         columns: [
           {
             name: 'id',
@@ -14,22 +14,7 @@ export class createUserTable1661099579706 implements MigrationInterface {
             isNullable: false
           },
           {
-            name: 'first_name',
-            type: 'varchar',
-            isNullable: false
-          },
-          {
-            name: 'last_name',
-            type: 'varchar',
-            isNullable: false
-          },
-          {
-            name: 'email',
-            type: 'varchar',
-            isNullable: false
-          },
-          {
-            name: 'password',
+            name: 'title',
             type: 'varchar',
             isNullable: false
           }
@@ -39,6 +24,6 @@ export class createUserTable1661099579706 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('boards');
   }
 }
