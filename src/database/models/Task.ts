@@ -9,11 +9,11 @@ class Task {
   @column()
   content!: string;
 
-  @column()
+  @column({ name: 'created_date' })
   createdDate!: Date;
 
   @ManyToOne(() => Column, (column) => column.tasks)
-  @column()
+  @column({ name: 'column_id' })
   columnId!: number;
 
   @column()
