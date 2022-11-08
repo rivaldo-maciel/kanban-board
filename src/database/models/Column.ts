@@ -17,7 +17,7 @@ class Column {
   title!: string;
 
   @ManyToOne(() => Board, (board) => board.columns)
-  @column()
+  @column({ name: 'board_id' })
   boardId!: number;
 
   @OneToMany(() => Task, (task) => task.columnId)

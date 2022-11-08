@@ -33,6 +33,7 @@ import {
 import ErrorMiddleware from './middlewares/ErrorMiddleware';
 import LoginRouter from './routers/LoginRouter';
 import JwtMiddleware from './middlewares/JwtMiddleware';
+import BoardRouter from './routers/BoardRouter';
 
 const PORT = 3001;
 
@@ -60,7 +61,7 @@ const boardServices = new BoardServices(
   UserBoard
 );
 const boardControllers = new BoardControllers(boardServices);
-const boardRouter = new EntityRouter(Router(), boardControllers);
+const boardRouter = new BoardRouter(Router(), boardControllers);
 
 app.routes('/boards', boardRouter.router);
 

@@ -33,6 +33,10 @@ class ColumnServices extends Services<Column> {
     await this.checkExistence(id);
     return await this.repository.delete(id);
   }
+
+  public async getColumnsByBoardId(boardId: number): Promise<Column[]> {
+    return await this.repository.find();
+  }
 }
 
 export default ColumnServices;
